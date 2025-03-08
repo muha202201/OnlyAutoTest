@@ -25,4 +25,22 @@ public class footerTest{
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     }
 
+    @Test
+    public void testFooterPresence(){
+        driver.get("https://only.digital/");
+        WebElement footer = driver.findElement(By.className("Footer_root___6Q28"));
+        Assert.assertNotNull(footer,"Футер не был найден");
+
+        List<WebElement> footerLink = footer.findElements(By.tagName("a"));
+        Assert.assertTrue(footerLink.size() > 0, "В футере нет ссылок");
+
+        WebElement email = footer.findElement(By.linkText("hello@only.digital"));
+        Assert.assertNotNull(email, "Элемент почты не найден");
+    }
+    @AfterClass
+    public void tearDown(){
+        if (driver != null){
+            driver.quit();
+        }
+    }
 }
